@@ -6,8 +6,6 @@ services:
     container_name: nest-docker
     ports:
       - "3000:3002"
-    volumes:
-      - /storage:/app
     env_file:
       - .env.production.local
     depends_on:
