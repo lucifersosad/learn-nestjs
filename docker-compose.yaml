@@ -5,22 +5,38 @@ services:
     build: .
     container_name: nest-docker
     ports:
-      - "3000:3000"
+      - "3000:3002"
     volumes:
       - /storage:/app
-    environment:
-      - NODE_ENV=development
-      - DATABAE_URL=0
+    env_file:
+      - .env.production.local
     depends_on:
       - db
 
   db:
-    image: mongo:6
-    container_name: mongodb
+    image: mariadb:10.6.16
+    container_name: mariadb
+    restart: always
     ports:
-      - "27017:27017"
+      - "3308:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: 123456
     volumes:
-      - mongo_data:/data/db
+      - mariadb_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: 123456
+    ports:
+      - "8080:80"
 
 volumes:
-  mongo_data:
+  mariadb_data:
+
+
