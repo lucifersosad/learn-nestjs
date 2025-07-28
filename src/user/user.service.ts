@@ -17,22 +17,22 @@ export class UserService {
     return this.userRepository.findAll();
   }
 
-  findOne(id: number): Promise<User> {
+  findOne(id: string): Promise<User> {
     return this.userRepository.findById(id);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.findOne(id);
     const updated = this.userRepository.merge(user, updateUserDto);
     return this.userRepository.save(updated);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     const user = await this.findOne(id);
     await this.userRepository.remove(user);
   }
 
-  findUserById(id: number): Promise<User> {
+  findUserById(id: string): Promise<User> {
     return this.findOne(id);
   }
 }
