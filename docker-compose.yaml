@@ -3,6 +3,7 @@ version: '3.8'
 services:
   app:
     build: .
+    image: learn-nestjs-app
     container_name: nest-docker
     ports:
       - "3000:3002"
