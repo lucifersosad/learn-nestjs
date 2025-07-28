@@ -22,7 +22,7 @@ export class UserRepository {
     return this.repo.find();
   }
 
-  async findById(id: number): Promise<User> {
+  async findById(id: string): Promise<User> {
     const user = await this.repo.findOneBy({ id });
     if (!user) {
       throw new NotFoundException('User không tồn tại');
